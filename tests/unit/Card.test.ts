@@ -1,4 +1,4 @@
-import { Card } from "../../src/Card";
+import { Card } from "../../src/entity/Card";
 
 test("should create a Card", () => {
   const card = new Card("Finish course", 12);

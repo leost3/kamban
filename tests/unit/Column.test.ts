@@ -1,4 +1,4 @@
-import { Column } from "../../src/Column";
+import { Column } from "../../src/entity/Column";
 
 test("should create a Column", () => {
   const column = new Column("TODO", true);

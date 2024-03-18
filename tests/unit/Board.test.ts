@@ -1,4 +1,4 @@
-import { Board } from "../../src/Board";
+import { Board } from "../../src/entity/Board";
 
 test("should create a board", () => {
   const board = new Board("Project 1", "new board");
