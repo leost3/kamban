@@ -7,6 +7,6 @@ export class Board {
   }
 
   addColumn(name: string) {
-    this.columns.push(new Column(name));
+    this.columns.push(new Column(name, true));
   }
 }
