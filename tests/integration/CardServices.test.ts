@@ -1,7 +1,11 @@
+import { PgPromiseConnection } from "../../src/infra/database/pgPromiseConnection";
+import { CardRepositoryDatabase } from "../../src/infra/repository/CardRepositotyDatabase";
 import { CardService } from "../../src/services/CardService";
 
 it("should return boards on getBoards", async () => {
-  const cardService = new CardService();
+  const connection = new PgPromiseConnection();
+  const cardRepository = new CardRepositoryDatabase(connection);
+  const cardService = new CardService(cardRepository);
   const cards = await cardService.getCards(1);
   const [card1, card2, card3] = cards;
   expect(cards).toHaveLength(3);

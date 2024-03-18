@@ -1,7 +1,11 @@
+import { PgPromiseConnection } from "../../src/infra/database/pgPromiseConnection";
+import { ColumnRepositoryDatabase } from "../../src/infra/repository/ColumnRepositoryDatabase";
 import { ColumnService } from "../../src/services/ColumnService";
 
 it("should return boards on getBoards", async () => {
-  const columnService = new ColumnService();
+  const connection = new PgPromiseConnection();
+  const columnRepository = new ColumnRepositoryDatabase(connection);
+  const columnService = new ColumnService(columnRepository);
   const columns = await columnService.getColumns(1);
   const [column1, column2, column3] = columns;
   expect(columns).toHaveLength(3);
