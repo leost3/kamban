@@ -24,7 +24,8 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/main.js",
-    "dev": "nodemon src/main.ts"
+    "dev": "nodemon src/main.ts",
+    "test": "npx jest --watch"
   },
   "keywords": [],
   "author": "",
