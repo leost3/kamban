@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import { PgPromiseConnection } from "./infra/database/pgPromiseConnection";
 import { BoardServices } from "./services/BoardServices";
 import { CardService } from "./services/CardService";
 import { ColumnService } from "./services/ColumnService";
@@ -12,7 +13,8 @@ app.listen(port, () => {
 });
 
 app.get("/boards", async (req, res) => {
-  const boards = await new BoardServices().getBoards();
+  const connection = new PgPromiseConnection();
+  const boards = await new BoardServices(connection).getBoards();
   res.json(boards);
 });
 

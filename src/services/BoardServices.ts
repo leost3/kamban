@@ -1,20 +1,18 @@
-import pgp from "pg-promise";
 import { Board } from "../entity/Board";
+import Connection from "../infra/database/Connection";
 export class BoardServices {
-  constructor() {}
+  constructor(private readonly connection: Connection) {}
 
   async getBoards(): Promise<Board[]> {
-    const connection = pgp()("postgres://postgres:postgres@localhost:5432/app");
-    const boardsData = await connection.query(
-      "select id_board,name, description from leo.board",
-      []
-    );
+    const boardsQuery = "select id_board,name, description from leo.board";
+    const boardParams: any = [];
+    const boardsData = await this.connection.query(boardsQuery, boardParams);
     const boards: Board[] = [];
     for (const boardData of boardsData) {
-      const cardsData = await connection.query(
-        "select * from leo.card join leo.column using (id_column) where id_board = $1",
-        [boardData.id_board]
-      );
+      const cardsQuery =
+        "select * from leo.card join leo.column using (id_column) where id_board = $1";
+      const cardsParams = [boardData.id_board];
+      const cardsData = await this.connection.query(cardsQuery, cardsParams);
       let estimation = 0;
       for (const cardData of cardsData) {
         estimation += cardData.estimation;
@@ -23,7 +21,7 @@ export class BoardServices {
       board.estimation = estimation;
       boards.push(board);
     }
-    await connection.$pool.end();
+    await this.connection.close();
     return boards;
   }
 }

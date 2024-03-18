@@ -1,7 +1,9 @@
+import { PgPromiseConnection } from "../../src/infra/database/pgPromiseConnection";
 import { BoardServices } from "../../src/services/BoardServices";
 
 it("should return boards on getBoards", async () => {
-  const boardServices = new BoardServices();
+  const connection = new PgPromiseConnection();
+  const boardServices = new BoardServices(connection);
   const boards = await boardServices.getBoards();
   expect(boards).toHaveLength(1);
   const [board] = boards;
