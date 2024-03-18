@@ -1,4 +1,4 @@
-import { Board } from "../entity/Board";
+import { Board } from "../domain/entity/Board";
 import Connection from "../infra/database/Connection";
 export class BoardServices {
   constructor(private readonly connection: Connection) {}
