@@ -9,6 +9,7 @@ test("should return boards through an API", async () => {
   expect(boards).toHaveLength(1);
   expect(board.name).toBe("Project 1");
   expect(board.description).toBe("TODO");
+  expect(board.estimation).toBe(16);
 });
 
 test("should return columns from a board through an API", async () => {
